@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NavListener</string>
+    <string name="accessibility_description">Membaca data navigasi real-time dari Google Maps dan mengirimkannya ke ESP8266 via MQTT</string>
+</resources>

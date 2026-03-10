@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Amber terminal theme -->
+    <color name="amber">#FFB300</color>
+    <color name="amber_dark">#7A5500</color>
+    <color name="green">#39FF14</color>
+    <color name="green_dark">#1A7A00</color>
+    <color name="red">#FF3131</color>
+    <color name="bg">#0A0800</color>
+    <color name="surface">#1A1500</color>
+    <color name="white">#FFE8A0</color>
+    <color name="muted">#5A4800</color>
+</resources>

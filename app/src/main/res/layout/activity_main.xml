@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0D12"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- HEADER -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NavListener"
+            android:textColor="#E8E8F0"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="4dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Google Maps → ESP8266 via MQTT"
+            android:textColor="#6B6B80"
+            android:textSize="12sp"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- STATUS CARD -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1A1A24"
+            android:padding="14dp"
+            android:layout_marginBottom="12dp">
+
+            <!-- MQTT -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+                <View android:id="@+id/dotMqtt"
+                    android:layout_width="10dp" android:layout_height="10dp"
+                    android:background="@drawable/dot_red" android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                    android:text="MQTT" android:textColor="#6B6B80" android:textSize="12sp"/>
+                <TextView android:id="@+id/tvMqttStatus"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="Tidak terhubung" android:textColor="#f74f4f" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <!-- Accessibility (utama) -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+                <View android:id="@+id/dotAccess"
+                    android:layout_width="10dp" android:layout_height="10dp"
+                    android:background="@drawable/dot_red" android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                    android:text="Live" android:textColor="#6B6B80" android:textSize="12sp"/>
+                <TextView android:id="@+id/tvAccessStatus"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="Tidak aktif" android:textColor="#f74f4f" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <!-- Notification listener (backup) -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <View android:id="@+id/dotListener"
+                    android:layout_width="10dp" android:layout_height="10dp"
+                    android:background="@drawable/dot_red" android:layout_marginEnd="10dp"/>
+                <TextView android:layout_width="80dp" android:layout_height="wrap_content"
+                    android:text="Backup" android:textColor="#6B6B80" android:textSize="12sp"/>
+                <TextView android:id="@+id/tvListenerStatus"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="Tidak aktif" android:textColor="#f74f4f" android:textSize="12sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- PERMISSION BUTTONS -->
+        <Button android:id="@+id/btnPermAccess"
+            android:layout_width="match_parent" android:layout_height="44dp"
+            android:text="⚠ Aktifkan Accessibility (Real-Time)"
+            android:backgroundTint="#4f8ef7"
+            android:textColor="#fff" android:textSize="13sp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button android:id="@+id/btnPermission"
+            android:layout_width="match_parent" android:layout_height="44dp"
+            android:text="⚠ Beri Izin Notifikasi (Backup)"
+            android:backgroundTint="#1A1A24"
+            android:textColor="#E8E8F0" android:textSize="13sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- MQTT CONFIG -->
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="MQTT BROKER" android:textColor="#6B6B80" android:textSize="10sp"
+            android:letterSpacing="0.1" android:layout_marginBottom="6dp"/>
+
+        <EditText android:id="@+id/etBroker"
+            android:layout_width="match_parent" android:layout_height="44dp"
+            android:hint="tcp://broker.emqx.io:1883"
+            android:background="#1A1A24" android:textColor="#E8E8F0"
+            android:textColorHint="#6B6B80" android:textSize="13sp"
+            android:padding="12dp" android:layout_marginBottom="8dp"
+            android:inputType="text" android:singleLine="true"/>
+
+        <EditText android:id="@+id/etChannel"
+            android:layout_width="match_parent" android:layout_height="44dp"
+            android:hint="Channel ID (contoh: NAVKU001)"
+            android:background="#1A1A24" android:textColor="#E8E8F0"
+            android:textColorHint="#6B6B80" android:textSize="13sp"
+            android:padding="12dp" android:layout_marginBottom="8dp"
+            android:inputType="text" android:singleLine="true"/>
+
+        <Button android:id="@+id/btnConnect"
+            android:layout_width="match_parent" android:layout_height="44dp"
+            android:text="CONNECT"
+            android:backgroundTint="#23c97d"
+            android:textColor="#fff" android:textSize="13sp" android:textStyle="bold"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- NAV DATA CARD -->
+        <LinearLayout android:id="@+id/cardNav"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1A1A24"
+            android:padding="0dp"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp">
+
+            <!-- Maneuver Banner -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="80dp"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="#4f8ef7" android:padding="14dp">
+
+                <ImageView android:id="@+id/imgArrow"
+                    android:layout_width="48dp" android:layout_height="48dp"
+                    android:src="@drawable/ic_arrow_up"
+                    android:layout_marginEnd="14dp"/>
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvDistance"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="---" android:textColor="#fff"
+                        android:textSize="28sp" android:textStyle="bold" android:lineSpacingMultiplier="1"/>
+                    <TextView android:id="@+id/tvManeuver"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="---" android:textColor="#ffffffcc" android:textSize="14sp"/>
+                </LinearLayout>
+
+                <TextView android:id="@+id/tvSource"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="---" android:textColor="#ffffffaa" android:textSize="11sp"/>
+            </LinearLayout>
+
+            <!-- Street Name -->
+            <TextView android:id="@+id/tvStreet"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="---" android:textColor="#E8E8F0"
+                android:textSize="15sp" android:textStyle="bold"
+                android:padding="14dp" android:maxLines="2"/>
+
+            <!-- Stats Row -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:background="#13131A">
+                <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvEta"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="ETA --:--" android:textColor="#E8E8F0" android:textSize="12sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Perkiraan tiba" android:textColor="#6B6B80" android:textSize="10sp"/>
+                </LinearLayout>
+                <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#2a2a3a"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvRemain"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="--- km lagi" android:textColor="#E8E8F0" android:textSize="12sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Jarak sisa" android:textColor="#6B6B80" android:textSize="10sp"/>
+                </LinearLayout>
+                <View android:layout_width="1dp" android:layout_height="match_parent" android:background="#2a2a3a"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1" android:gravity="center" android:orientation="vertical">
+                    <TextView android:id="@+id/tvTxCount"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="0" android:textColor="#E8E8F0" android:textSize="12sp" android:textStyle="bold"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Paket TX" android:textColor="#6B6B80" android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Next Maneuver Card -->
+            <LinearLayout android:id="@+id/cardNext"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:background="#13131A" android:padding="12dp"
+                android:visibility="gone">
+                <View android:layout_width="3dp" android:layout_height="match_parent"
+                    android:background="#4f8ef7" android:layout_marginEnd="12dp"/>
+                <ImageView android:id="@+id/imgNextArrow"
+                    android:layout_width="28dp" android:layout_height="28dp"
+                    android:src="@drawable/ic_arrow_up" android:alpha="0.7"
+                    android:layout_marginEnd="10dp"/>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:id="@+id/tvNextManeuver"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Lalu: ---" android:textColor="#6B6B80" android:textSize="12sp"/>
+                    <TextView android:id="@+id/tvNextStreet"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="---" android:textColor="#9090A0" android:textSize="11sp"/>
+                </LinearLayout>
+                <View android:id="@+id/dotNav"
+                    android:layout_width="8dp" android:layout_height="8dp"
+                    android:background="@drawable/dot_gray"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- INFO NOTE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💡 Cara pakai:\n1. Aktifkan Accessibility Service (tombol biru di atas)\n2. Connect ke MQTT broker\n3. Buka Google Maps, mulai navigasi\n4. Data akan terkirim otomatis ke ESP8266"
+            android:textColor="#6B6B80" android:textSize="12sp"
+            android:lineSpacingMultiplier="1.5"
+            android:background="#1A1A24"
+            android:padding="14dp"/>
+
+    </LinearLayout>
+</ScrollView>
